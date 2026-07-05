@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sugerencias</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <img
+        src="src/images/ecg_logo2.png"
+        alt="Logo de electrocardiograma"
+        class="page-image3"
+      />
+      <h1>Sugerencias</h1>
+      <p>Comparte tus ideas o mejoras para esta ayuda.</p>
+
+      <form id="datosForm" class="form-card">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" required />
+
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" name="correo" required />
+
+        <label for="sugerencia">Sugerencia</label>
+        <textarea
+          id="sugerencia"
+          name="sugerencia"
+          rows="4"
+          placeholder="Escribe aquí tu sugerencia..."
+          required
+        ></textarea>
+
+        <button type="submit" class="back-link submit-button">
+          Guardar datos
+        </button>
+      </form>
+
+      <p id="mensaje" class="message" aria-live="polite"></p>
+      <a href="index.html" class="back-link">Volver al inicio</a>
+    </main>
+
+    <div id="modalOverlay" class="modal-overlay">
+      <div class="modal-box">
+        <h2>¡Gracias!</h2>
+        <p id="modalMessage">Su sugerencia ha sido procesada correctamente.</p>
+        <button id="closeModal" class="back-link submit-button" type="button">
+          Cerrar
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById("datosForm");
+      const mensaje = document.getElementById("mensaje");
+      const modalOverlay = document.getElementById("modalOverlay");
+      const modalMessage = document.getElementById("modalMessage");
+      const closeModal = document.getElementById("closeModal");
+
+      function abrirModal(texto) {
+        modalMessage.textContent = texto;
+        modalOverlay.classList.add("active");
+      }
+
+      function cerrarModal() {
+        modalOverlay.classList.remove("active");
+      }
+
+      // Sólo el botón cerrar cierra el modal
+      closeModal.addEventListener("click", cerrarModal);
+
+      // Evitar cierre al hacer clic fuera del modal
+      modalOverlay.addEventListener("click", function (e) {
+        if (e.target === modalOverlay) {
+          e.stopPropagation();
+        }
+      });
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const nombre = document.getElementById("nombre").value.trim();
+        const correo = document.getElementById("correo").value.trim();
+        const sugerencia = document.getElementById("sugerencia").value.trim();
+
+        if (!nombre || !correo || !sugerencia) {
+          mensaje.textContent = "Por favor completa todos los campos.";
+          return;
+        }
+
+        try {
+          const apiUrl = window.location.hostname === "localhost"
+            ? `${window.location.origin}/guardar-sugerencia`
+            : "http://localhost:3000/guardar-sugerencia";
+
+          const respuesta = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nombre, correo, sugerencia })
+          });
+
+          const resultado = await respuesta.json();
+          mensaje.textContent = resultado.mensaje;
+          abrirModal("Gracias por su sugerencia. Se ha procesado correctamente.");
+          form.reset();
+        } catch (error) {
+          mensaje.textContent = "No se pudo guardar la sugerencia.";
+        }
+      });
+    </script>
+  </body>
+</html>

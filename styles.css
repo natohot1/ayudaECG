@@ -1,0 +1,165 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #eaf4ff, #f7fbff);
+  color: #22384f;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1rem;
+  gap: 1rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.8rem, 6vw, 4.2rem);
+  line-height: 1.1;
+  max-width: 95%;
+  font-weight: 700;
+}
+
+.page-image {
+  display: block;
+  width: min(840px, 90vw);
+  max-width: 840px;
+  height: auto;
+  margin: 0 auto 0.5rem;
+}
+.page-image2 {
+  display: block;
+  width: min(420px, 45vw);
+  max-width: 420px;
+  height: auto;
+  margin: 0 auto 0.5rem;
+}
+.page-image3 {
+  display: block;
+  width: min(210px, 23vw);
+  max-width: 210px;
+  height: auto;
+  margin: 0 auto 0.5rem;
+}
+
+p {
+  max-width: 600px;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card,
+.back-link {
+  display: inline-block;
+  padding: 0.9rem 1.4rem;
+  border-radius: 10px;
+  background: #2f80ed;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.card:hover,
+.back-link:hover {
+  transform: translateY(-2px);
+  background: #1f60b3;
+}
+
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: min(380px, 90vw);
+  padding: 1.2rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 20px rgba(34, 56, 79, 0.12);
+}
+
+.form-card label {
+  text-align: left;
+  font-weight: bold;
+}
+
+.form-card input,
+.form-card textarea {
+  padding: 0.8rem;
+  border: 1px solid #c8dff5;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.submit-button {
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.message {
+  min-height: 1.3rem;
+  margin: 0;
+  color: #0b5f2f;
+  font-weight: bold;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  background: white;
+  border-radius: 14px;
+  padding: 1.5rem 1.25rem;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+  transform: translateY(10px);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0.95;
+}
+
+.modal-overlay.active .modal-box {
+  transform: translateY(0);
+}
+
+.modal-box h2 {
+  margin: 0 0 0.75rem;
+  color: #22384f;
+}
+
+.modal-box p {
+  margin: 0;
+  color: #36536d;
+  line-height: 1.5;
+}
